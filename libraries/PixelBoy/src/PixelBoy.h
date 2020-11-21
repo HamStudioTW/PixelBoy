@@ -34,14 +34,14 @@
 #define P_E 21
 #define P_OE 5
 
-hw_timer_t * timer = NULL;
-portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
+hw_timer_t * _pb_timer = NULL;
+portMUX_TYPE _pb_timerMux = portMUX_INITIALIZER_UNLOCKED;
 PxMATRIX display(64,32,P_LAT, P_OE,P_A,P_B,P_C,P_D);
 
 void IRAM_ATTR display_updater() {
-  portENTER_CRITICAL_ISR(&timerMux);
+  portENTER_CRITICAL_ISR(&_pb_timerMux);
   display.display(20);
-  portEXIT_CRITICAL_ISR(&timerMux);
+  portEXIT_CRITICAL_ISR(&_pb_timerMux);
 }
 
 void init_pixelboy()
@@ -51,9 +51,9 @@ void init_pixelboy()
   display.setDriverChip(FM6124);
   display.flushDisplay();
   display.setTextWrap(false);
-  timer = timerBegin(0, 80, true);
-  timerAttachInterrupt(timer, &display_updater, true);
-  timerAlarmWrite(timer, 4000, true);
-  timerAlarmEnable(timer);
+  _pb_timer = timerBegin(0, 80, true);
+  timerAttachInterrupt(_pb_timer, &display_updater, true);
+  timerAlarmWrite(_pb_timer, 4000, true);
+  timerAlarmEnable(_pb_timer);
 }
-  #endif //  _PIXELBOY_H__
+#endif //  _PIXELBOY_H__

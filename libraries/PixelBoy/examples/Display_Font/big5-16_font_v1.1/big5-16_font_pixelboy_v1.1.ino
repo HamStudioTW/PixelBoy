@@ -1,29 +1,9 @@
+//
 // PixelBoy Example: Chinese Font Big5-16x16 Test
 // 
-
+#include "pixelboy.h"
 #include "b5f16.h"
 
-//#define double_buffer
-
-#include <PxMatrix.h>
-#define P_LAT 22
-#define P_A 2
-#define P_B 19
-#define P_C 25
-#define P_D 26
-#define P_E 21
-#define P_OE 5
-hw_timer_t * timer = NULL;
-portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
-PxMATRIX display(64,32,P_LAT, P_OE,P_A,P_B,P_C,P_D);
-
-void IRAM_ATTR display_updater() {
-  portENTER_CRITICAL_ISR(&timerMux);
-  display.display(1);
-  portEXIT_CRITICAL_ISR(&timerMux);
-}
-
-uint16_t _cx, _cy, _color1, color[8];
 uint8_t bits[]={0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 0x01};
 
 uint32_t b5offset(uint16_t ch)
@@ -62,46 +42,38 @@ void showfont16(int f, int x, int y, int c)
 
 void setup() 
 {
-  display.begin(16, 18, 23, -1, 0);
-  display.setFastUpdate(true);
-  display.setDriverChip(FM6124);
-  display.flushDisplay();
-  display.setTextWrap(false);
-  display.setBrightness(10);
-  timer = timerBegin(0, 80, true);
-  timerAttachInterrupt(timer, &display_updater, true);
-  timerAlarmWrite(timer, 4000, true);
-  timerAlarmEnable(timer);
+  init_pixelboy();
 
-  for(int i=0; i<8; i++) color[i]=rand()%65536;
-  
   for(int i=64; i>-128; i--) {
       display.fillScreen(0);
-      showch(0xB5BA, i+0, 16, color[4]); 
-      showch(0xA4F5, i+16, 0, color[1]); 
-      showch(0xB16D, i+16, 16, color[5]);
-      showch(0xBB4C, i+32, 0, color[2]); 
-      showch(0xBF4F, i+32, 16, color[6]);
-      showch(0xAA4F, i+48, 16, color[7]);
+      showch(0xAAB1, i+0, 0, rand()%65536); 
+      showch(0xBEC7, i+16, 0, rand()%65536); 
+      showch(0xB942, i+32, 0, rand()%65536); 
+      showch(0xBAE2, i+48, 0, rand()%65536); 
+      showch(0xB5BA, i+64, 0, rand()%65536); 
+      showch(0xB16D, i+80, 0, rand()%65536); 
+      showch(0xBF4F, i+96, 0, rand()%65536); 
+      showch(0xAA4F, i+112, 0, rand()%65536); 
+      showch(0xAAB1, i*2+0, 16, wbNAVY); 
+      showch(0xBEC7, i*2+16, 16, wbPINK); 
+      showch(0xB942, i*2+32, 16, wbGREEN); 
+      showch(0xBAE2, i*2+48, 16, wbBLUE); 
+      showch(0xB5BA, i*2+64, 16, wbRED); 
+      showch(0xB16D, i*2+80, 16, wbDARKGREY); 
+      showch(0xBF4F, i*2+96, 16, wbDARKGREEN); 
+      showch(0xAA4F, i*2+112, 16, wbPINK); 
       display.showBuffer();
-      delay(80);
+      delay(100);
   }
-
 }
 
 void loop() 
 {
   static int fn=40;
 
-  _cx=(rand()%4)*16;
-  _cy=(rand()%2)*16;
-  _color1=(rand()%65536); 
-  showfont16(fn++, _cx, _cy, _color1); 
+  showfont16(fn++, (rand()%4)*16, (rand()%2)*16, (rand()%65536)); 
   if (fn>13000) fn=40;
   
-  // 送上燈板顯示
-  display.showBuffer();
-  
-  // 延遲 20ms (50fps)
-  delay(100);
+  display.showBuffer(); // 送上燈板顯示
+  delay(100); // 延遲 20ms (50fps)
 }

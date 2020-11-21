@@ -6,18 +6,10 @@
 PATTERN_COUNT = ; 後面的數字請一定要改成對應特效數量
 */
 
-#define PxMATRIX_MAX_HEIGHT 32
-#define PxMATRIX_MAX_WIDTH 64
 #define PxMATRIX_double_buffer true
 
 #include <PxMatrix.h>
-
-#define P_LAT 22
-#define P_A 2
-#define P_B 19
-#define P_C 25
-#define P_D 26
-#define P_OE 5
+#include <pixelboy.h>
 hw_timer_t * timer = NULL;
 portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
 
@@ -29,7 +21,6 @@ unsigned long ms_previous = 0;
 unsigned long ms_animation_max_duration = 10000; // 10秒換一個展示動畫
 unsigned long next_frame = 0;
 
-PxMATRIX display(64,32,P_LAT,P_OE,P_A,P_B,P_C,P_D); 
 
 #include <FastLED.h>
 #include "Effects.h"
@@ -48,12 +39,6 @@ uint16_t myCYAN = display.color565(0, 255, 255);
 uint16_t myMAGENTA = display.color565(255, 0, 255);
 uint16_t myBLACK = display.color565(0, 0, 0);
 uint16_t myCOLORS[8]={myRED,myGREEN,myBLUE,myWHITE,myYELLOW,myCYAN,myMAGENTA,myBLACK};
-
-void IRAM_ATTR display_updater(){
-  portENTER_CRITICAL_ISR(&timerMux);
-  display.display(1);
-  portEXIT_CRITICAL_ISR(&timerMux);
-}
 
 void display_update_enable(bool is_enable)
 {
