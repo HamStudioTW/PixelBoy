@@ -29,9 +29,8 @@
 #define P_LAT 22
 #define P_A 2
 #define P_B 19
-#define P_C 25
+#define P_C 21
 #define P_D 26
-#define P_E 21
 #define P_OE 5
 
 hw_timer_t * _pb_timer = NULL;
