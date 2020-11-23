@@ -80,15 +80,13 @@ void setup()
   display.setFastUpdate(true);
   display.setDriverChip(FM6124);
   display.setPanelsWidth(1);
-  display.setBrightness(30);
-  display.setFastUpdate(true);
   display.clearDisplay();
   display.setTextColor(myCYAN);
   display.setCursor(2,5);
-  display.print("WiFiBoy");
+  display.print("PixelBoy");
   display.setTextColor(myMAGENTA);
   display.setCursor(2,15);
-  display.print("PixelFun");
+  display.print("Play to learn");
   display_update_enable(true);
   delay(5000);
   
