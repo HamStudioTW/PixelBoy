@@ -488,7 +488,7 @@ inline void PxMATRIX::setDriverChip(driver_chips driver_chip)
   if (driver_chip == FM6124 || driver_chip == FM6126A){
 
     uint16_t b12a=0b0111111111111111; //亮度: high
-             b12a=0b0111100011111111; //亮度: low
+             //b12a=0b0111100011111111; //亮度: low
  // uint16_t b12b=0b0111100000111111;
     // uint16_t b12c=0b0111111111111111;
     // uint16_t b12d=0b0111100000111111;
