@@ -2,7 +2,7 @@
 #define _PIXELBOY_H_
 //
 // PixelBoy for OK:ESP32 
-// with PxMatrix Library (by Dominic Buchstaller)
+// with PxBoard Library
 //
 
 #define wbBLACK       0x0000      /*   0,   0,   0 */
@@ -25,7 +25,7 @@
 #define wbGREENYELLOW 0xAFE5      /* 173, 255,  47 */
 #define wbPINK        0x780F
 
-#include <PxMatrix.h>
+#include <PxBoard.h>
 #define P_LAT 22
 #define P_A 2
 #define P_B 19
@@ -35,7 +35,7 @@
 
 hw_timer_t * _pb_timer = NULL;
 portMUX_TYPE _pb_timerMux = portMUX_INITIALIZER_UNLOCKED;
-PxMATRIX display(64,32,P_LAT, P_OE,P_A,P_B,P_C,P_D);
+PxBOARD display(64,32,P_LAT, P_OE,P_A,P_B,P_C,P_D);
 
 void IRAM_ATTR display_updater() {
   portENTER_CRITICAL_ISR(&_pb_timerMux);
