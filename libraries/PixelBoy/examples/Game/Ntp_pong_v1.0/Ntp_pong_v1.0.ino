@@ -9,8 +9,8 @@
 #define NTP_OFFSET   8*60*60   // GMT+8
 #define NTP_INTERVAL 60*1000    
 #define NTP_ADDRESS  "tw.pool.ntp.org"
-const char *ssid     = "Glaz";
-const char *password = "derek123";
+const char *ssid     = "Your wifi SSID";
+const char *password = "Your wifi PASSWORD";
 char clocked=0;
 
 void setup() 

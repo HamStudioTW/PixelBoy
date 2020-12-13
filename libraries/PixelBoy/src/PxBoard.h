@@ -427,7 +427,6 @@ inline void PxBOARD::setDriverChip(driver_chips driver_chip)
 
   if (driver_chip == FM6124 || driver_chip == FM6126A){
 
-    uint16_t b12a=0b0111111111111111; //亮度: high
     uint16_t b13a=0b0000000001000000;
 
 #ifdef ESP32
@@ -436,11 +435,9 @@ inline void PxBOARD::setDriverChip(driver_chips driver_chip)
     digitalWrite(_OE_PIN, HIGH);
     pinMode(_LATCH_PIN, LOW);
 
-    fm612xWriteRegister(b12a,11);
     fm612xWriteRegister(b13a,12);
 
 #else
-    writeRegister(b12a, 12);
     writeRegister(b13a, 13);
 #endif
 

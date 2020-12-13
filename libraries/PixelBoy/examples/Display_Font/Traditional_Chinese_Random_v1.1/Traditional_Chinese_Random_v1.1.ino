@@ -3,7 +3,6 @@
 
 #include "wbFontB12.h"
 #include <pixelboy.h>
-#include <PxMatrix.h>
 uint8_t bits[]={0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 0x01};
 uint8_t fbuf[18];
 uint16_t _cx, _cy, _color1;

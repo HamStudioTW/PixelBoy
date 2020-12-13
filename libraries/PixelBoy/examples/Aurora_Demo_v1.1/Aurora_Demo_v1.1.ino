@@ -6,9 +6,7 @@
 PATTERN_COUNT = ; 後面的數字請一定要改成對應特效數量
 */
 
-#define PxMATRIX_double_buffer true
-
-#include <PxMatrix.h>
+#define PxBOARD_double_buffer true
 #include <pixelboy.h>
 hw_timer_t * timer = NULL;
 portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
